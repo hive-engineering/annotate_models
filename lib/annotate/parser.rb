@@ -58,7 +58,11 @@ module Annotate
                        "Additional file paths or globs to annotate, separated by commas (e.g. `/foo/bar/%model_name%/*.rb,/baz/%model_name%.rb`)") do |additional_file_patterns|
         ENV['additional_file_patterns'] = additional_file_patterns
       end
-
+      option_parser.on('--model-file-patterns path1,path2,path3',
+        Array,
+        "Models file paths or globs to annotate, separated by commas (e.g. `/foo/bar/%model_name%/*.rb,/baz/%model_name%.rb`)") do |model_file_patterns|
+        ENV['model_file_patterns'] = model_file_patterns
+      end
       option_parser.on('-d',
                        '--delete',
                        'Remove annotations from all model files or the routes.rb file') do
@@ -211,6 +215,11 @@ module Annotate
       option_parser.on('--ignore-model-subdirects',
                        "Ignore subdirectories of the models directory") do
         env['ignore_model_sub_dir'] = 'yes'
+      end
+
+      option_parser.on('--ignore-model-root-directory',
+        "Ignore models root directory") do
+        env['ignore_model_root_dir'] = 'yes'
       end
 
       option_parser.on('--sort',

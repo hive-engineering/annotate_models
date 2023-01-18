@@ -13,7 +13,7 @@ module Annotate
 
     FLAG_OPTIONS = [
       :show_indexes, :simple_indexes, :include_version, :exclude_tests,
-      :exclude_fixtures, :exclude_factories, :ignore_model_sub_dir,
+      :exclude_fixtures, :exclude_factories, :ignore_model_sub_dir, :ignore_model_root_dir,
       :format_bare, :format_rdoc, :format_yard, :format_markdown, :sort, :force, :frozen,
       :trace, :timestamp, :exclude_serializers, :classified_sort,
       :show_foreign_keys, :show_complete_foreign_keys,
@@ -22,8 +22,8 @@ module Annotate
     ].freeze
 
     OTHER_OPTIONS = [
-      :additional_file_patterns, :ignore_columns, :skip_on_db_migrate, :wrapper_open, :wrapper_close,
-      :wrapper, :routes, :models, :hide_limit_column_types, :hide_default_column_types,
+      :additional_file_patterns, :model_file_patterns, :ignore_columns, :skip_on_db_migrate, :wrapper_open,
+      :wrapper_close, :wrapper, :routes, :models, :hide_limit_column_types, :hide_default_column_types,
       :ignore_routes, :active_admin
     ].freeze
 

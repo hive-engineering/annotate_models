@@ -534,14 +534,20 @@ module AnnotateModels
 
       return model_files unless model_files.empty?
 
-      model_dir.each do |dir|
-        Dir.chdir(dir) do
-          list = if options[:ignore_model_sub_dir]
-                   Dir["*.rb"].map { |f| [dir, f] }
-                 else
-                   Dir["**/*.rb"].reject { |f| f["concerns/"] }.map { |f| [dir, f] }
-                 end
-          model_files.concat(list)
+      if options[:ignore_model_root_dir]
+        options[:model_file_patterns].each do |pattern|
+          model_files.concat(Dir.glob(pattern).map { |f| f })
+        end
+      else
+        model_dir.each do |dir|
+          Dir.chdir(dir) do
+            list = if options[:ignore_model_sub_dir]
+                     Dir["*.rb"].map { |f| [dir, f] }
+                   else
+                     Dir["**/*.rb"].reject { |f| f["concerns/"] }.map { |f| [dir, f] }
+                   end
+            model_files.concat(list)
+          end
         end
       end
 
@@ -654,14 +660,14 @@ module AnnotateModels
       end
 
       annotated = []
-      get_model_files(options).each do |path, filename|
-        annotate_model_file(annotated, File.join(path, filename), header, options)
+      get_model_files(options).each do |file|
+        annotate_model_file(annotated, File.join(file), header, options)
       end
 
       if annotated.empty?
         puts 'Model files unchanged.'
       else
-        puts "Annotated (#{annotated.length}): #{annotated.join(', ')}"
+        puts "Annotated (#{annotated.length})"
       end
     end
 

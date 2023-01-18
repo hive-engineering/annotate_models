@@ -13,6 +13,7 @@ task annotate_models: :environment do
   options = {is_rake: true}
   ENV['position'] = options[:position] = Annotate::Helpers.fallback(ENV['position'], 'before')
   options[:additional_file_patterns] = ENV['additional_file_patterns'] ? ENV['additional_file_patterns'].split(',') : []
+  options[:model_file_patterns] = ENV['model_file_patterns'] ? ENV['model_file_patterns'].split(',') : []
   options[:position_in_class] = Annotate::Helpers.fallback(ENV['position_in_class'], ENV['position'])
   options[:position_in_fixture] = Annotate::Helpers.fallback(ENV['position_in_fixture'], ENV['position'])
   options[:position_in_factory] = Annotate::Helpers.fallback(ENV['position_in_factory'], ENV['position'])
@@ -35,6 +36,7 @@ task annotate_models: :environment do
   options[:exclude_helpers] = Annotate::Helpers.true?(ENV.fetch('exclude_helpers', 'true'))
   options[:exclude_sti_subclasses] = Annotate::Helpers.true?(ENV['exclude_sti_subclasses'])
   options[:ignore_model_sub_dir] = Annotate::Helpers.true?(ENV['ignore_model_sub_dir'])
+  options[:ignore_model_root_dir] = Annotate::Helpers.true?(ENV['ignore_model_root_dir'])
   options[:format_bare] = Annotate::Helpers.true?(ENV['format_bare'])
   options[:format_rdoc] = Annotate::Helpers.true?(ENV['format_rdoc'])
   options[:format_yard] = Annotate::Helpers.true?(ENV['format_yard'])
