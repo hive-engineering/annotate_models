@@ -1,12 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches:
-      - '*'
-
+    branches: ['*']
   push:
-    branches:
-      - '*'
+    branches: ['*']
 
 jobs:
   test:
@@ -14,11 +11,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ruby: ['2.7']
+        include:
+          - ruby: '3.2'
+            activerecord: '~> 7.2.0'
+          - ruby: '3.4'
+            activerecord: '~> 8.0.0'
+          - ruby: '3.4'
+            activerecord: '~> 8.1.0'
+
+    name: Ruby ${{ matrix.ruby }} / AR ${{ matrix.activerecord }}
+    env:
+      ACTIVERECORD_VERSION: ${{ matrix.activerecord }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

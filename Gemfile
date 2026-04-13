@@ -1,43 +1,27 @@
 source 'https://rubygems.org'
 
-ruby '>= 2.4.0'
+ruby '>= 3.2.0'
 
-gem 'activerecord', '>= 4.2.5', '< 6', require: false
+ar_version = ENV.fetch('ACTIVERECORD_VERSION', '>= 7.2')
+gem 'activerecord', ar_version, require: false
 gem 'rake', require: false
 
 group :development do
   gem 'bump'
-  gem 'mg', require: false
-  gem 'travis', require: false
-  platforms :mri, :mingw do
-    gem 'yard', require: false
-  end
+  gem 'yard', require: false
 end
 
 group :development, :test do
-  gem 'byebug'
-  gem 'guard-rspec', require: false
+  gem 'debug'
   gem 'rspec', require: false
-
   gem 'rubocop', '~> 1.12.0', require: false
   gem 'rubocop-rake', require: false
   gem 'rubocop-rspec', '~> 2.2.0', require: false
   gem 'simplecov', require: false
-  gem 'terminal-notifier-guard', require: false
-
-  gem 'codeclimate-test-reporter'
-  gem 'coveralls'
-
-  gem 'overcommit'
-  gem 'ruby_dep', '1.5.0'
-
-  platforms :mri, :mingw do
-    gem 'pry', require: false
-    gem 'pry-byebug', require: false
-  end
 end
 
 group :test do
   gem 'files', require: false
   gem 'git', require: false
+  gem 'sqlite3'
 end
