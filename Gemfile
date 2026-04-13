@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-ruby '>= 3.2.0'
+ruby '>= 3.4.0'
 
 ar_version = ENV.fetch('ACTIVERECORD_VERSION', '>= 7.2')
-gem 'activerecord', ar_version, require: false
+gem 'activerecord', ar_version, '< 9.0', require: false
 gem 'rake', require: false
 
 group :development do

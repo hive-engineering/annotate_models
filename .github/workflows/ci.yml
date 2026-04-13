@@ -1,9 +1,9 @@
 name: CI
 on:
   pull_request:
-    branches: ['*']
+    branches: ['**']
   push:
-    branches: ['*']
+    branches: ['**']
 
 jobs:
   test:
@@ -11,13 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - ruby: '3.2'
-            activerecord: '~> 7.2.0'
-          - ruby: '3.4'
-            activerecord: '~> 8.0.0'
-          - ruby: '3.4'
-            activerecord: '~> 8.1.0'
+        ruby: ['3.4']
+        activerecord: ['~> 7.2.0', '~> 8.0.0', '~> 8.1.0']
 
     name: Ruby ${{ matrix.ruby }} / AR ${{ matrix.activerecord }}
     env:
